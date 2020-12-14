@@ -36,7 +36,7 @@ app.post('/signUp', function(req,res){
     var q10 = req.body.q10;
     var q11= req.body. q11;
     var q12 = req.body.q12 ;
-
+    console.log(q1);
     var data = { 
         "fname": fname, 
         "lname":lname, 
