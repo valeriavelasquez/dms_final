@@ -43,27 +43,35 @@
 
 .body {
     background: white;
-    width: 70%;
-    margin-right: 700px;
+    width: 100% !important;
+    margin-right: 700px !important;
 }
 
 .form_title h1{
     margin: 50px 100px 50px 50px;
     font-size: 50px;
+    text-align: center;
+    line-height: 150%;
 }
 
 .form_border {
     margin: -50px 50px 50px 50px;
-    border: 4px dotted #657c5a;
+    border: 4px dotted grey;
     background: white;
     border-radius: 20px;
     padding: 20px;
+
 }
 
 .form_q {
     font-size: 20px;
     background: white;
     line-height: 30px;
+    text-align: center;
+}
+
+.match_buttons {
+    text-align: center;
 }
 
 /* RADIO BUTTON STYLES*/
@@ -154,7 +162,7 @@
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 .checkbox-tools:checked + label{
-	background-color: #657c5a;
+	background-color: #B7B7A4;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .checkbox-tools:not(:checked) + label:hover{
