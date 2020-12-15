@@ -1,3 +1,5 @@
+const emailresult = document.getElementById("emailresult");
+
 function valEmail()
 {
     var email = document.getElementById("email").value;
@@ -13,6 +15,14 @@ function valEmail()
             var json = JSON.parse(this.responseText);
             var isEmailValid = json["valid"];
             console.log(isEmailValid);
+            
+                if (isEmailValid == 1)
+                {
+                    emailresult.innerHTML = "This email is valid!"
+                } else {
+                    emailresult.innerHTML = "Please input a valid email!"
+                }
+            
             return isEmailValid;
         }
     });
