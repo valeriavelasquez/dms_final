@@ -79,7 +79,7 @@ db.collection('toMatch').insertOne(data,function(err, collection){
     } 
  
          )
-            res.sendFile(__dirname + "/nomatches.html");
+            res.sendFile(__dirname + "/no_matches.html");
 
             //Send them to some page that says no matches currently, we have added you to the database
             
