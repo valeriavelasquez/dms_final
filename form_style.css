@@ -202,10 +202,3 @@ input[type=text], select, textarea {
     margin-bottom: 16px;
     resize: vertical;
 }
-
-.emailresult {
-    text-align: center;
-    color: #D20E11; 
-    padding: 1px 15px; 
-    width: auto;
-}
