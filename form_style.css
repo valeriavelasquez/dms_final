@@ -203,14 +203,6 @@ input[type=text], select, textarea {
     resize: vertical;
 }
 
-.errMsg {
-    color: #D20E11; 
-    border: solid 1px #d20e11; 
-    padding: 1px 15px; 
-    display: none;	
-    width: 300px;
-}    
-
 .emailresult {
     text-align: center;
     color: #D20E11; 
