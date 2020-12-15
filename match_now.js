@@ -127,7 +127,7 @@ db.collection('toMatch').insertOne(data,function(err, collection){
                 }
             })
             
-             res.sendFile(__dirname + "/nowpage.html");
+             res.sendFile(__dirname + "/now_page.html");
 
 
         }
