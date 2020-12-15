@@ -1,6 +1,7 @@
 const url_ = 'mongodb+srv://valeriavelasquez:tomato@cluster0.bmsdw.mongodb.net/forApp?retryWrites=true&w=majority';
 const express = require('express');
 const bodyParser = require('body-parser');
+const mailer = require('nodemailer');
 var mongoose = require('mongoose');
 quest = require('./questions');
 const app = express();
@@ -29,17 +30,22 @@ app.post('/signUp',function(req,res){
     var q10 = parseInt(req.body.q10);
     var q11= parseInt(req.body.q11);
     var q12 = parseInt(req.body.q12);
+    var email = req.body.email;
+    var fname = req.body.fname; 
+    var lname =req.body.lname; 
     var curr = [q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12];
     var possible_q = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12'];
    // console.log(q1);
     var cursor =  db.collection('toMatch').find().toArray(function(err,A)
     {
         /* Matching START */
-        var best_match_score = 0;
+        var best_match_score = Number.MAX_SAFE_INTEGER;
         var best_id;
         var best_name;
+        var best_email;
         if (A.length == 0)
         {
+            console.log("no one is currently in the database :(, Try to Match later!");
             //Send them to some page that says no matches currently, we have added you to the database
             
         }
@@ -54,17 +60,40 @@ app.post('/signUp',function(req,res){
                 }
             
 
-                if (curr_score > best_match_score)
+                if (curr_score <= best_match_score)
                 {
                     best_match_score = curr_score;
                     best_id = A[i]['_id'];
-                    best_name = A[i]['fname'];
+                    best_name = A[i]['fname'] + ' ' + A[i]['lname'];
+                    best_email = A[i]['email'];
                 }
             }
             console.log("your best match has the name of: " + best_name);
-        }
+        
         /* MATCHING END*/
+        
+        
+        /* DELETE MATCHED PERSON FROM DATABASE */
+           // db.collection("toMatch").remove({_id: best_id});
 
+        /* EMAIL PEOPLE THAT GOT MATCHED */
+            var recipients_string = best_email + ', ' + email;
+            var _text = best_name + " and " + fname + " " + lname + " are a match!";
+            var transporter = mailer.createTransport({service:'gmail',auth:{user:'friendmatchapp20@gmail.com',pass:'comp20rocks'}});
+            var mailOptions = {from:'friendmatchapp20@gmail.com',to:recipients_string,subject:'Friend Match Results!',text:_text}
+
+            transporter.sendMail(mailOptions,function(err,info){
+                if (err)
+                {
+                    console.log(err);
+                }
+                else{
+                    console.log('Email sent: ' + info.response);
+                }
+            })
+
+
+        }
     });
   
     // quest.getMatch(function(err, data)
