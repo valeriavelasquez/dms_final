@@ -9,6 +9,7 @@
     <title>survey questions</title>  
     <link type="text/css" rel="stylesheet" href="form_style.css">
     
+    <!-- CSS START -->
     <style type = text/css>
         .errMsg {
             color: #D20E11; 
@@ -17,12 +18,13 @@
             display: none;	
             width: 300px;
         }
-	.emailresult {
-   	    text-align: center;
+        
+        .emailresult {
+   	        text-align: center;
             color: #D20E11; 
             padding: 1px 15px; 
             width: auto;
-	}    
+	   }    
     </style>
 	
     <!-- JAVASCRIPT START -->
@@ -30,8 +32,17 @@
 
 	function validate()
         {
+            // Valid email verification
+            emailInvalid = false;
+            if ($('#emailresult').is(":contains('Please input a valid email!')"))
+            {
+                emailInvalid = true;
+                console.log(emailInvalid);
+            }
             
+            // Valid input verification
             err = false;
+            
             document.getElementById("err_fname").style.display = "none";
             document.getElementById("err_lname").style.display = "none";
             document.getElementById("err_email").style.display = "none";
@@ -58,6 +69,12 @@
                     err=true;
                 }
                 
+                // When Email Verification API returns false, user cannot submit form
+                if (emailInvalid == true) {
+                    email.focus();
+                    err=true;
+                }
+                
                 if (age.value == "") {
                     document.getElementById("err_age").style.display = "inline-block";
                     age.focus();
@@ -79,6 +96,7 @@
 		
             return !err;
 	}
+        
 </script>	
 </head>
     
@@ -123,7 +141,7 @@
                         <div id="err_email" class="errMsg">Please enter your email!</div><br>
                         <div id="inv_email" class="errMsg">Please enter a valid email!</div>
                         <input type="button" value="Validate Email" id="valemail" onclick="valEmail()"></div>
-			<div class="emailresult" id="emailresult"></div>
+                        <div class="emailresult" id="emailresult"></div>
         
                     </div> 
                     &nbsp;
