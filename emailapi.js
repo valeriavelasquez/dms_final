@@ -1,30 +1,25 @@
 function valEmail()
-    {
-        var data = document.getElementById("email").value;
+{
+    var email = document.getElementById("email").value;
+    
+    console.log(email);
+    
+    const request = new XMLHttpRequest();
+    request.withCredentials = true;
 
-        var request = new XMLHttpRequest();
-        request.withCredentials = true;
-
-        request.open("GET", "https://mailcheck.p.rapidapi.com/?domain=mailinator.com");
-        request.setRequestHeader("x-rapidapi-key", "ab9e5fe0cdmsh16c4c1ec11f8acbp1ac60bjsn827a0185b7ee");
-        request.setRequestHeader("x-rapidapi-host", "mailcheck.p.rapidapi.com");
-
-        request.readystatechange = function () {
-            if (this.valid == true) {
-                console.log('Email is valid');
-            } else {
-                console.log('Email is invalid');
-                blockSubmit();
-            }
+    request.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            // console.log(this.responseText);
+            var json = JSON.parse(this.responseText);
+            var isEmailValid = json["valid"];
+            console.log(isEmailValid);
+            return isEmailValid;
         }
-        request.send(data);
-    }
+    });
+    
+    request.open("GET", "https://mailcheck.p.rapidapi.com/?domain=" + email);
+    request.setRequestHeader("x-rapidapi-key", "ab9e5fe0cdmsh16c4c1ec11f8acbp1ac60bjsn827a0185b7ee");
+    request.setRequestHeader("x-rapidapi-host", "mailcheck.p.rapidapi.com");
 
-    function blockSubmit()
-    {
-        document.getElementById("inv_email").style.display = "none";
-        with (document.data) {
-            document.getElementById("inv_email").style.display = "inline-block";
-            email.focus();
-        }
-    }
+    request.send(email);
+}
